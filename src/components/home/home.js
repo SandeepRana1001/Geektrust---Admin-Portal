@@ -22,10 +22,6 @@ const Home = () => {
         const sliced = allUsers.slice(record, limit)
         setUsers([...sliced])
         console.clear()
-        console.log(`pageLimit`)
-        console.log(pageLimit)
-        console.log(`currentPage`)
-        console.log(currentPage)
     }
 
     const generateRange = () => {
@@ -44,30 +40,28 @@ const Home = () => {
         let limit = Math.round((allUsers.length) / 10)
         setPageLimit(limit)
         generateRange()
+        setLoading(false)
+
     }, [data])
 
     useEffect(() => {
         paginationLogic(currentPage)
-        setLoading(false)
     }, [allUsers, currentPage])
 
-    const togglePage = () => {
-        setCurrentPage(currentPage + 1)
+    const togglePage = (toggleType) => {
+        if (toggleType === 'INCREMENT' && currentPage !== pageLimit - 1) {
+            setCurrentPage(currentPage + 1)
+        } else {
+            if (currentPage !== 0)
+                setCurrentPage(currentPage - 1)
+        }
     }
 
     return (
         <div className="container">
-            <button onClick={togglePage}>Button</button>
             <Loader loading={loading} msg='Loading.... Please Wait' />
             <Table users={users} />
-            {
-                !loading &&
-                users.map((user) => {
-                    return <div key={user.id}>
-                        {user.name} - {user.id}
-                    </div>
-                })
-            }
+
             {
                 !loading &&
                 <Pagination
@@ -75,6 +69,7 @@ const Home = () => {
                     range={range}
                     paginationLogic={paginationLogic}
                     pageLimit={pageLimit}
+                    togglePage={togglePage}
                 />
             }
 

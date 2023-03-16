@@ -2,21 +2,22 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import './pagination.css'
 
-const Pagination = ({ currentPage, range, paginationLogic, pageLimit }) => {
+const Pagination = ({ currentPage, range, paginationLogic, pageLimit, togglePage }) => {
 
-
-    useEffect(() => {
-        console.log(`Current Page = ${currentPage}`)
-        console.log(`Range = ${range}`)
-        console.log(`PageLimit = ${pageLimit}`)
-    })
+    console.log(range)
 
     return (
         <div>
-            <nav aria-label="Page navigation example">
+            <nav className='mt-3'>
                 <ul className="pagination justify-content-center">
                     <li className={`page-item ${currentPage === 0 ? 'disabled' : ''}`}>
-                        <Link className="page-link" to='#'>Previous</Link>
+                        <Link
+                            className="page-link"
+                            to='#'
+                            onClick={() => togglePage('DECREMENT')}
+                        >
+                            Previous
+                        </Link>
                     </li>
                     {
                         range.map((num, index) => {
@@ -33,7 +34,13 @@ const Pagination = ({ currentPage, range, paginationLogic, pageLimit }) => {
                         })
                     }
                     <li className={`page-item ${currentPage === pageLimit - 1 ? 'disabled' : ''}`}>
-                        <Link className="page-link" to="#">Next</Link>
+                        <Link
+                            className="page-link"
+                            to='#'
+                            onClick={() => togglePage('INCREMENT')}
+                        >
+                            Next
+                        </Link>
                     </li>
                 </ul>
             </nav>
