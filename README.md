@@ -11,11 +11,8 @@ In the project directory, you can run:
 Runs the app in the development mode.  
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-```sh
 ### `Components`
-```
 
-```sh
 1) Header  : Header of the app
 2) Home    : Home Component  - Heart of the app
 3) Loader  : Displays a loader on screen
@@ -24,18 +21,13 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 6) Search : Displays a search bar on screen
 7) Custom Hooks :  Custom hook to fetch the data
 8) Edit : Edit window to edit the data
-```
 
-```sh
+
 ### `API ENDPOINT USED`
 
 [API ENDPOINT](https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json)
-```
 
-```sh
 # Author
-```
 
-```sh
 Project was created by [Sandeep Rana](https://www.linkedin.com/in/its-sandeeprana/)
-```
+
