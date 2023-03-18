@@ -2,11 +2,28 @@ import { useState } from "react"
 
 import './table.css'
 
+/**
+     * 
+     * @param {array} users - List of 10 users spliced from the all users array for current page
+     * @param {function }deleteAllSelected  - function to delete all selected users
+     * @param {function} deleteSelectedUsers - function to delete a single selected user
+     * @param {function} addModaldata - function to get id of the the user to be edited
+     * @returns {null}
+*/
 
 const Table = ({ users, deleteAllSelected, deleteSelected, addModaldata }) => {
 
+    // array state to store all selected users
     const [selected, setSelected] = useState([])
+    // state to check if select all is selected or not
     const [selectAll, setSelectAll] = useState(false)
+
+
+    /**
+     * Function to check if user is selected or not
+     * @param {string} id - Id of the user
+     * @returns {boolean} true if the user is selected and false otherwise
+     */
 
     const isCheckboxChecked = (id) => {
         if (selected.includes(id)) {
@@ -14,6 +31,11 @@ const Table = ({ users, deleteAllSelected, deleteSelected, addModaldata }) => {
         }
         return false
     }
+
+    /**
+     * Function to check and uncheck all users
+     * @returns {null}
+     */
 
     const toggleSelectAll = () => {
         setSelected([])
@@ -28,6 +50,12 @@ const Table = ({ users, deleteAllSelected, deleteSelected, addModaldata }) => {
         setSelectAll(!selectAll)
     }
 
+    /**
+     * add or removed user id from the selected array
+     * @param {string} id - Id of the user 
+     * @param {*} dependency  - not used -  for future use
+     */
+
     const toggleSelectionList = (id, dependency = false) => {
 
         if (selected.includes(id)) {
@@ -39,23 +67,35 @@ const Table = ({ users, deleteAllSelected, deleteSelected, addModaldata }) => {
         }
     }
 
+    /**
+     * Delete All function deletes all seleted users at once from memory
+     * @return {null}
+     */
+
     const deleteAll = () => {
         deleteAllSelected(selected)
         setSelectAll(false)
         setSelected([])
     }
 
+    /**
+     * Delete One Function delete only one user at a time
+     * @return {null}
+     */
+
     const deleteOne = (id) => {
         deleteSelected(id)
     }
 
-    const openEditModal = (id, name, email, role) => {
-        console.log('Go')
-        addModaldata(id, name, email, role)
-    }
+    /**
+     * Sends id to the modal data 
+     * @param {string} id  - id of the user
 
-    // Use effect to check if everything is select
-    // if yes select the select all dropdown
+     */
+
+    const openEditModal = (id) => {
+        addModaldata(id)
+    }
 
 
     return (

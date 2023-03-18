@@ -2,6 +2,16 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import './pagination.css'
 
+/**
+ * 
+ * @param {integer} currentPage - Represents the current page
+ * @param {array} range - A list of pages starting from 1 to n
+ * @param {function} paginationLogic - Logic to set current page and the data in it
+ * @param {integer} pageLimit - The Last page 
+ * @param {function} togglePage - Toggle the current page based on the dependencies  - INCREMENT for next page and DECREMENT for previous page
+ * @returns 
+ */
+
 const Pagination = ({ currentPage, range, paginationLogic, pageLimit, togglePage }) => {
 
 

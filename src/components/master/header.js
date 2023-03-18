@@ -1,5 +1,10 @@
 import './header.css'
 
+/**
+ * Header for the application
+ * @returns {null}
+ */
+
 const Header = () => {
 
     return (

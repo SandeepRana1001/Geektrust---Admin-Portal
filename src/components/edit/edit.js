@@ -1,27 +1,42 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import CustomInput from '../customInput/customInput'
 import './edit.css'
 
+/**
+ * Edit - A Bootstrap modal dialog allows user to edit the data
+ * @param {String} id The id of the modal
+ * @param {Function} function to update the users
+ * @return {null}
+ */
+
+
 const Edit = ({ id, updateUserData }) => {
 
+    // State for managing  Errors
     const [error, setError] = useState({
         name: '',
         email: '',
         role: ''
     })
 
+    // State for managing user data
     const [userData, setUserData] = useState({
         name: '',
         email: '',
         role: ''
     })
 
+    /** 
+     *  function for checking if there is a error
+     * @returns {boolean} true if there is a error , false otherwise
+     * 
+    */
     const doeFormHasError = () => {
         let msg = ''
         let field = ''
         let filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         let error = false
-        if (userData.name.trim().length < 3) {
+        if (userData.name.trim().length < 3) { // validate name
             error = true
             field = 'name'
             msg = 'Name must be at least 3 characters long'
@@ -30,7 +45,7 @@ const Edit = ({ id, updateUserData }) => {
                 role: '',
                 [field]: msg
             }))
-        } else if (!filter.test(userData.email)) {
+        } else if (!filter.test(userData.email)) { // validate email
             error = true
             field = 'email'
             msg = 'Please enter a valid email address'
@@ -39,7 +54,7 @@ const Edit = ({ id, updateUserData }) => {
                 role: '',
                 [field]: msg
             }))
-        } else if (userData.role.trim().length === 0) {
+        } else if (userData.role.trim().length === 0) { // validate role
             error = true
             field = 'role'
             msg = 'Please enter a role'
@@ -52,18 +67,22 @@ const Edit = ({ id, updateUserData }) => {
             error = false
         }
 
-        if (!error) {
+        if (!error) { // if no error - clear State errors
             setError((prev) => ({
                 name: '',
                 email: '',
                 role: ''
             }))
-        } else {
-
         }
 
         return error
     }
+
+    /**
+     * Function to handle the input value and userData values
+     * @param {event} Event Object received 
+     * @returns {null}
+     */
 
     const onChangeHandler = (event) => {
         console.log(userData)
@@ -74,6 +93,12 @@ const Edit = ({ id, updateUserData }) => {
             [field]: value
         }))
     }
+
+    /**
+     * Update Detail updates the user list if there is no error 
+     * Clears the user and error state for next record
+     * @returns {null} 
+     */
 
     const updateDetails = () => {
         if (doeFormHasError()) {

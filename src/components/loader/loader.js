@@ -1,5 +1,11 @@
 import './loader.css'
 
+/**
+ * @param {boolean} only shows loader whenever loading
+ * @param {string} msg - Msg to be displayed while loading 
+ * @returns  {null}
+ */
+
 const Loader = ({ loading, msg }) => {
     return (
         <div className='mt-5'>
