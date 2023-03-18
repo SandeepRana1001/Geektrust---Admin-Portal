@@ -14,16 +14,21 @@
     text-transform: capitalize;
 }
 
+#actions button {
+    background-color: transparent;
+    border: 0;
+}
+
 .selected {
     background-color: #2980b9;
     color: white;
 }
 
-#actions span:first-child {
+#actions button:first-child {
     margin-right: 20px;
 }
 
-#actions span:last-child {
+#actions button:last-child {
     color: #c0392b !important;
 }
 

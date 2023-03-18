@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import './table.css'
 
 
-const Table = ({ users, deleteSelected }) => {
+const Table = ({ users, deleteAllSelected, deleteSelected }) => {
 
     const [selected, setSelected] = useState([])
     const [selectAll, setSelectAll] = useState(false)
@@ -39,9 +39,13 @@ const Table = ({ users, deleteSelected }) => {
     }
 
     const deleteAll = () => {
-        deleteSelected(selected)
+        deleteAllSelected(selected)
         setSelectAll(!selectAll)
         setSelected([])
+    }
+
+    const deleteOne = (id) => {
+        deleteSelected(id)
     }
 
     useEffect(() => {
@@ -94,11 +98,13 @@ const Table = ({ users, deleteSelected }) => {
                                                     <td className="role">{user.role}</td>
                                                     <td>
                                                         <div className="d-flex justify-content-center" id="actions">
-                                                            <span>
+                                                            <button>
                                                                 <i className="fa-sharp fa-regular fa-pen-to-square"></i>
-                                                            </span>
-                                                            <span>
-                                                                <i className="fa-regular fa-trash-can"></i>                                                            </span>
+                                                            </button>
+                                                            <button
+                                                                onClick={() => deleteOne(user.id)}
+                                                            >
+                                                                <i className="fa-regular fa-trash-can"></i>                                                            </button>
                                                         </div>
                                                     </td>
                                                 </tr>

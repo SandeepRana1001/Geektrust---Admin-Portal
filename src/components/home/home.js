@@ -51,9 +51,16 @@ const Home = () => {
         setLoading(false)
     }, [allUsers, currentPage])
 
-    const deleteSelected = (data) => {
+    const deleteAllSelected = (data) => {
         const arr = allUsers.filter((user) => {
             return !data.includes(user.id)
+        })
+        setAllUsers([...arr])
+    }
+
+    const deleteSelected = (id) => {
+        const arr = allUsers.filter((user) => {
+            return user.id != id
         })
         setAllUsers([...arr])
     }
@@ -68,8 +75,11 @@ const Home = () => {
     }
 
     return (
-        <div className="container">
-            <Loader loading={loading} msg='Loading.... Please Wait' />
+        <div className="container mt-5">
+            {
+                loading && allUsers.length === 0 &&
+                <Loader loading={loading} msg='Loading.... Please Wait' />
+            }
 
             {
                 !loading && allUsers.length === 0 &&
@@ -77,7 +87,7 @@ const Home = () => {
                     <h5 className="text-center">
                         No data found
                         <span>
-                            <i class="fa-regular fa-face-sad-tear"></i>
+                            <i className="fa-regular fa-face-sad-tear"></i>
                         </span>
                     </h5>
                 </div>
@@ -86,7 +96,12 @@ const Home = () => {
                 !loading && allUsers.length > 0 &&
                 <div>
 
-                    <Table users={users} deleteSelected={deleteSelected} />
+                    <Table
+                        users={users}
+                        deleteAllSelected={deleteAllSelected}
+                        deleteSelected={deleteSelected}
+                    />
+
                     <Pagination
                         currentPage={currentPage}
                         range={range}

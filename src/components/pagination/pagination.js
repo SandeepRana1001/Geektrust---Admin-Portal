@@ -3,9 +3,7 @@ import { Link } from 'react-router-dom'
 import './pagination.css'
 
 const Pagination = ({ currentPage, range, paginationLogic, pageLimit, togglePage }) => {
-    useEffect(() => {
-        console.log(range)
-    }, [range])
+
 
     return (
         <div>
