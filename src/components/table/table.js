@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import './table.css'
 
 
-const Table = ({ users }) => {
+const Table = ({ users, deleteSelected }) => {
 
     const [selected, setSelected] = useState([])
     const [selectAll, setSelectAll] = useState(false)
@@ -16,12 +16,13 @@ const Table = ({ users }) => {
 
     const toggleSelectAll = () => {
         setSelected([])
-        if (!selected) {
+        if (!selectAll) {
             let arr = []
             for (let user of users) {
-                arr.push(user.id)
+                if (!selected.includes(user.id))
+                    arr.push(user.id)
             }
-            setSelected([...arr])
+            setSelected([...selected, ...arr])
         }
         setSelectAll(!selectAll)
     }
@@ -37,16 +38,14 @@ const Table = ({ users }) => {
         }
     }
 
-    const deleteSelected = () => {
-
+    const deleteAll = () => {
+        deleteSelected(selected)
+        setSelectAll(!selectAll)
+        setSelected([])
     }
 
     useEffect(() => {
-        console.clear()
-        console.log('Selected = ')
-        console.log(selected)
-        console.log('Select All = ')
-        console.log(selectAll)
+
     }, [selected])
 
     // Use effect to check if everything is select
@@ -64,8 +63,9 @@ const Table = ({ users }) => {
                                     <tr>
                                         <th scope="col">
                                             <input type='checkbox'
-                                                onClick={toggleSelectAll}
+                                                onChange={toggleSelectAll}
                                                 className='form-check-inline'
+                                                checked={selectAll}
                                             />
                                         </th>
                                         <th scope="col">Name</th>
@@ -91,7 +91,7 @@ const Table = ({ users }) => {
                                                     </td>
                                                     <td>{user.name}</td>
                                                     <td>{user.email}</td>
-                                                    <td>{user.role}</td>
+                                                    <td className="role">{user.role}</td>
                                                     <td>
                                                         <div className="d-flex justify-content-center" id="actions">
                                                             <span>
@@ -113,7 +113,7 @@ const Table = ({ users }) => {
                                 type="button"
                                 className={`btn ${selectAll || selected.length > 0 ? 'active' : 'disabled'}`}
                                 id="deleteAll"
-                                onClick={deleteSelected}
+                                onClick={deleteAll}
                             >
                                 <span>
                                     Delete Selected

@@ -21,7 +21,6 @@ const Home = () => {
         let limit = (currentPage + 1) * 10
         const sliced = allUsers.slice(record, limit)
         setUsers([...sliced])
-        console.clear()
     }
 
     const generateRange = () => {
@@ -46,7 +45,18 @@ const Home = () => {
 
     useEffect(() => {
         paginationLogic(currentPage)
+        let limit = Math.round((allUsers.length) / 10)
+        setPageLimit(limit)
+        generateRange()
+        setLoading(false)
     }, [allUsers, currentPage])
+
+    const deleteSelected = (data) => {
+        const arr = allUsers.filter((user) => {
+            return !data.includes(user.id)
+        })
+        setAllUsers([...arr])
+    }
 
     const togglePage = (toggleType) => {
         if (toggleType === 'INCREMENT' && currentPage !== pageLimit - 1) {
@@ -60,18 +70,34 @@ const Home = () => {
     return (
         <div className="container">
             <Loader loading={loading} msg='Loading.... Please Wait' />
-            <Table users={users} />
 
             {
-                !loading &&
-                <Pagination
-                    currentPage={currentPage}
-                    range={range}
-                    paginationLogic={paginationLogic}
-                    pageLimit={pageLimit}
-                    togglePage={togglePage}
-                />
+                !loading && allUsers.length === 0 &&
+                <div id="no_data">
+                    <h5 className="text-center">
+                        No data found
+                        <span>
+                            <i class="fa-regular fa-face-sad-tear"></i>
+                        </span>
+                    </h5>
+                </div>
             }
+            {
+                !loading && allUsers.length > 0 &&
+                <div>
+
+                    <Table users={users} deleteSelected={deleteSelected} />
+                    <Pagination
+                        currentPage={currentPage}
+                        range={range}
+                        paginationLogic={paginationLogic}
+                        pageLimit={pageLimit}
+                        togglePage={togglePage}
+                    />
+                </div>
+            }
+
+
 
         </div>
     )

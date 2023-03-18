@@ -10,6 +10,9 @@
     overflow: hidden;
 }
 
+.role {
+    text-transform: capitalize;
+}
 
 .selected {
     background-color: #2980b9;

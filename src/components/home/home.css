@@ -1,0 +1,8 @@
+#no_data h5 {
+    color: #f39c12;
+    font-size: 35px;
+}
+
+#no_data h5 span {
+    margin-left: 5px;
+}
