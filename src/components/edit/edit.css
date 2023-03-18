@@ -1,0 +1,8 @@
+.full-width {
+    width: 100%;
+    transition: all 0.3s ease-in-out;
+}
+
+.full-width:hover {
+    background: linear-gradient(to left, #2676ac, #2a81ba);
+}

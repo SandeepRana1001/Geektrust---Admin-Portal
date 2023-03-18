@@ -4,7 +4,7 @@
 }
 
 .table-row:hover {
-    background-color: #3498db;
+    background-color: #5b5d5f;
     color: white;
     transform: translateX(4px);
     overflow: hidden;
@@ -20,7 +20,7 @@
 }
 
 .selected {
-    background-color: #2980b9;
+    background-color: #4e5051;
     color: white;
 }
 

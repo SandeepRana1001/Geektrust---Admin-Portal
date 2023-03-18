@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
+
 import './table.css'
 
 
-const Table = ({ users, deleteAllSelected, deleteSelected }) => {
+const Table = ({ users, deleteAllSelected, deleteSelected, addModaldata }) => {
 
     const [selected, setSelected] = useState([])
     const [selectAll, setSelectAll] = useState(false)
@@ -40,7 +41,7 @@ const Table = ({ users, deleteAllSelected, deleteSelected }) => {
 
     const deleteAll = () => {
         deleteAllSelected(selected)
-        setSelectAll(!selectAll)
+        setSelectAll(false)
         setSelected([])
     }
 
@@ -48,9 +49,10 @@ const Table = ({ users, deleteAllSelected, deleteSelected }) => {
         deleteSelected(id)
     }
 
-    useEffect(() => {
-
-    }, [selected])
+    const openEditModal = (id, name, email, role) => {
+        console.log('Go')
+        addModaldata(id, name, email, role)
+    }
 
     // Use effect to check if everything is select
     // if yes select the select all dropdown
@@ -98,7 +100,9 @@ const Table = ({ users, deleteAllSelected, deleteSelected }) => {
                                                     <td className="role">{user.role}</td>
                                                     <td>
                                                         <div className="d-flex justify-content-center" id="actions">
-                                                            <button>
+                                                            <button
+                                                                onClick={() => openEditModal(user.id, user.name, user.email, user.role)}
+                                                            >
                                                                 <i className="fa-sharp fa-regular fa-pen-to-square"></i>
                                                             </button>
                                                             <button
